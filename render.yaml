@@ -1,0 +1,24 @@
+services:
+  # Backend API (for WebApp)
+  - type: web
+    name: movieextractbot-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python api.py
+    envVars:
+      - key: BOT_TOKEN
+        value: 8573110391:AAHtya3zYRpFQYJcmr1pLfDOPdF1SI-wUfI
+      - key: WEBAPP_URL
+        value: https://movieextractbot.vercel.app
+
+  # Telegram Bot (worker)
+  - type: worker
+    name: movieextractbot-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: BOT_TOKEN
+        value: 8573110391:AAHtya3zYRpFQYJcmr1pLfDOPdF1SI-wUfI
+      - key: WEBAPP_URL
+        value: https://movieextractbot.vercel.app
